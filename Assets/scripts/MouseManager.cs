@@ -25,10 +25,12 @@ public class MouseManager : MonoBehaviour {
 
         if (Physics.Raycast(ray, out hitInfo))
         {
-            //Debug.Log("Raycast hit:" + hitInfo.collider.gameObject.name);
-            if (Input.GetMouseButton(0))
+            GameObject ourHitObject = hitInfo.collider.gameObject;
+            Debug.Log("Raycast hit:" + ourHitObject.name);
+            if (Input.GetMouseButtonDown(0))
             {
-                Debug.Log("Hej");
+                MeshRenderer mr = ourHitObject.GetComponentInChildren<MeshRenderer>();
+                mr.material.color = Color.red;
             }
         }
         
