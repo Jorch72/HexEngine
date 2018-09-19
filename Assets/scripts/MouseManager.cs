@@ -69,6 +69,8 @@ public class MouseManager : MonoBehaviour {
         if (Input.GetMouseButtonDown(0))
         {
             selectedMovable = ourHitObject.GetComponent<Movable>();
+
+
         }
     }
 }
