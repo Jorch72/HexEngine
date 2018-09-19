@@ -31,7 +31,11 @@ public class MapEngine: MonoBehaviour
 
                 GameObject hx_go = (GameObject) Instantiate(hexPrefab, center, Quaternion.identity);
                
-                hx_go.name = "Position_" + i + "_" + j;
+                hx_go.name = "Row_" + i + "_Column_" + j;
+                hx_go.GetComponent<Hex>().mapR = i;
+                hx_go.GetComponent<Hex>().mapQ = j;
+
+                //Parent this hex
                 hx_go.transform.SetParent(this.transform);
                 hx_go.isStatic = true;
           
