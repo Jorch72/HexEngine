@@ -23,17 +23,17 @@ public class MapEngine: MonoBehaviour
         height = Mathf.Sqrt(3) * size;
           
         Vector3 center = new Vector3(0, 0, 0);
-        for (int i = 1; i < mapwidth; i++)
+        for (int R = 1; R < mapwidth; R++)
         {
-            for (int j = 0; j < mapheight; j++)
+            for (int Q = 0; Q < mapheight; Q++)
             {
 
 
                 GameObject hx_go = (GameObject) Instantiate(hexPrefab, center, Quaternion.identity);
                
-                hx_go.name = "Row_" + i + "_Column_" + j;
-                hx_go.GetComponent<Hex>().mapR = i;
-                hx_go.GetComponent<Hex>().mapQ = j;
+                hx_go.name = "Row_" + R + "_Column_" + Q;
+                hx_go.GetComponent<Hex>().mapR = R;
+                hx_go.GetComponent<Hex>().mapQ = Q;
 
                 //Parent this hex
                 hx_go.transform.SetParent(this.transform);
@@ -46,14 +46,14 @@ public class MapEngine: MonoBehaviour
             center.z = center.z + height;
 
 
-            if (i % 2 == 0)
+            if (R % 2 == 0)
             {
-                Debug.Log(i % 2);
+                Debug.Log(R % 2);
                 center.x = 0;
             }           
             else
             {
-                Debug.Log(i % 2);
+                Debug.Log(R % 2);
                 center.x = width / 2;
             }
                 

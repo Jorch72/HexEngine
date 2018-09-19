@@ -1,50 +1,76 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class MouseManager : MonoBehaviour {
-
-	// Use this for initialization
-	void Start () {
+    Movable selectedMovable;
+    // Use this for initialization
+    void Start () {
 		
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        //Debug.Log("Mouseposition: " + Input.mousePosition);
-
-        //
-        //GameObject.Find("Camera Bob").GetComponent<Camera>();
-        // In orthographic mode
-        //Vector3 worldPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        //Debug.Log("World Point: " + worldPoint);
-        RaycastHit hitInfo;
         
 
+        // Is ove Unity UI object
+        //if (EventSystem.current.IsPointerOverGameObject())
+        //{
+        //    return;
+        //}
+
+        RaycastHit hitInfo;
+        
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
         if (Physics.Raycast(ray, out hitInfo))
         {
             GameObject ourHitObject = hitInfo.collider.gameObject;
-            Color col = new Color(54.0f,115.0f,123.0f,1.0f);
 
-            Debug.Log("Raycast hit:" + ourHitObject.name);
-            if (Input.GetMouseButtonDown(0))
+            if (ourHitObject.GetComponent<Hex>() != null)
             {
-                MeshRenderer mr = ourHitObject.GetComponentInChildren<MeshRenderer>();
-                
-                if (mr.material.color == Color.red)
-                {
-                    mr.material.color = col; 
-                }
-                else
-                {
-                    mr.material.color = Color.red;
-                }
+                MouseOverHex(ourHitObject);
+            }
+            else if (ourHitObject.GetComponent<Movable>() != null)
+            {
+                Debug.Log("Movable");
+                MouseOverMovable(ourHitObject);
+            }
+
+
+        }
+    }
+
+    void MouseOverHex(GameObject ourHitObject)
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            MeshRenderer mr = ourHitObject.GetComponentInChildren<MeshRenderer>();
+
+            if (mr.material.color == Color.red)
+            {
+                mr.material.color = Color.gray;
+            }
+            else
+            {
+                mr.material.color = Color.red;
+            }
+
+            if (selectedMovable != null)
+            {
+                selectedMovable.destination = ourHitObject.transform.position;
             }
         }
-        
+    }
+
+    void MouseOverMovable(GameObject ourHitObject)
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            selectedMovable = ourHitObject.GetComponent<Movable>();
 
 
+        }
     }
 }
