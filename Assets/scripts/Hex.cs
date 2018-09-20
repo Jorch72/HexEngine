@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Hex : MonoBehaviour {
 
-    public int mapR;
-    public int mapQ;
+    public int R;
+    public int Q;
     
     public Hex[] GetNeighbours()
     {
